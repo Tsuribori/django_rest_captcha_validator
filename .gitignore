@@ -1,0 +1,5 @@
+*.sqlite3
+manage.py
+rest_captcha_validator/*
+*.swp
+*.pyc
