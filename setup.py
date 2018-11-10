@@ -12,7 +12,6 @@ install_requires = [
     'django-simple-captcha>=0.5.9',
     'djangorestframework>=3.9.0',
     'Pillow>=5.3.0',
-    'pgk-resources>=0.0.0',
     'python-memcached>=1.59',
     'pytz>=2018.7',
     'six>=1.11.0'
