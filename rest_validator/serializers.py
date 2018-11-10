@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.core.cache import cache
+from django.conf import settings
 
 
 class RestCaptchaSerializer(serializers.Serializer):
@@ -13,7 +14,7 @@ class RestCaptchaSerializer(serializers.Serializer):
         real_value = cache.get(key)
         
         if value.upper() == real_value:
-            cache.set(key, 'Validated')
+            cache.set(key, 'Validated', settings.REST_VALIDATOR_CACHE_TIMEOUT)
             return data
  
         else:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.core.cache import caches
+from django.core.cache import cache
 
 class RestCaptchaField(serializers.Field):
 

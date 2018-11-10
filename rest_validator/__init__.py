@@ -1,0 +1,4 @@
+from django.conf import settings
+from rest_validator.conf.settings import REST_VALIDATOR_CACHE_TIMEOUT
+
+settings.REST_VALIDATOR_CACHE_TIMEOUT = REST_VALIDATOR_CACHE_TIMEOUT
