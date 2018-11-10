@@ -1,10 +1,22 @@
 import os
 from setuptools import find_packages, setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     README = readme.read()
 
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
+install_requires = [
+    'Django>=2.1.3',
+    'django-ranged-response>=0.2.0',
+    'django-simple-captcha>=0.5.9',
+    'djangorestframework>=3.9.0',
+    'Pillow>=5.3.0',
+    'pgk-resources>=0.0.0',
+    'python-memcached>=1.59',
+    'pytz>=2018.7',
+    'six>=1.11.0'
+]
 
 setup(
     name = 'django_rest_captcha_validator',
