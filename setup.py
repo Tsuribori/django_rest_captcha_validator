@@ -26,8 +26,8 @@ setup(
     license = 'MIT License',
     description = 'A Django app to validate human input based on CAPTCHA',
     long_description = README,
-    url = 'https://github.com/Tsuribori/django_rest_captcha_validator'
-    classifiers=[
+    url = 'https://github.com/Tsuribori/django_rest_captcha_validator',
+    classifiers = [
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
