@@ -29,7 +29,7 @@ Add rest_validator and `Django Simple Captcha <https://github.com/mbi/django-sim
   ]
 
 Remember to migrate: ::
-$ python manage.py migrate
+  $ python manage.py migrate
 
 Add entries to your urls.py: ::
 
