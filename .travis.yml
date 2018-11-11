@@ -8,4 +8,4 @@ install:
   - pip install .
 
 script:
-  - runtests.py
+  - python runtests.py
