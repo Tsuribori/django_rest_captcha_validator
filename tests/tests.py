@@ -1,6 +1,7 @@
 from captcha.models import CaptchaStore
 from django.conf import settings
 from django.core.cache import cache
+from django.utils import timezone
 from rest_framework.test import APITestCase
 from rest_framework.reverse import reverse
 from time import sleep
@@ -9,7 +10,6 @@ from .models import Item
 from .serializers import ItemSerializer
 from rest_validator.serializers import RestCaptchaSerializer
 from rest_validator.fields import RestCaptchaField
-from rest_validator.conf.settings import REST_VALIDATOR_CACHE_TIMEOUT
 
 class ViewTestCase(APITestCase):
 
@@ -115,4 +115,17 @@ class SerializerTestCase(APITestCase):
         serializer = ItemSerializer(data={'item_text': item.item_text, 'captcha_key': self.key})
         serializer.is_valid()
         self.assertEqual(serializer.errors, {'captcha_key': ['Invalid or expired CAPTCHA']})
+       
+
+class SettingsTestCase(APITestCase): #Test that default CAPTCHA_TIMEOUT of Django Simple Captcha is 5 minutes
+    
+    def setUp(self):
+        now = timezone.now()
+        captcha = CaptchaStore.generate_key()
+        captcha_timeout = CaptchaStore.objects.get(hashkey=captcha).expiration
+        timeout_object = captcha_timeout - now
+        self.timeout = timeout_object.seconds / 60
+
+    def test_captcha_timeout(self):
+        self.assertEqual(settings.CAPTCHA_TIMEOUT, self.timeout)
         

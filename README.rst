@@ -17,7 +17,7 @@ Intallation
 
 Install via pip: ::
 
-  $ pip install -e git+https://github.com/Tsuribori/django_rest_captcha_validator#egg=rest_validator
+  $ pip install -e git+https://github.com/Tsuribori/django_rest_captcha_validator.git#egg=rest_validator
 
 Add rest_validator and `Django Simple Captcha <https://github.com/mbi/django-simple-captcha>`_ to your INSTALLED_APPS: ::
 
@@ -65,7 +65,7 @@ The package also provides a RestCaptchaView that is mapped to the URL given to i
 A GET request to the view will generate a new CAPTCHA challenge, and return a CAPTCHA key value and an URL to the challenge image, for example: ::
 
   {
-      "captcha_key: "e0411286a3c3f5b57d859747eb8811d3bd023b3a",
+      "captcha_key": "e0411286a3c3f5b57d859747eb8811d3bd023b3a",
       "captcha_image": "http://localhost:8000/captcha/image/e0411286a3c3f5b57d859747eb8811d3bd023b3a/"
   }
 

@@ -3,7 +3,9 @@ from rest_framework.reverse import reverse
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 from django.core.cache import cache
+from django.conf import settings
 from .serializers import RestCaptchaSerializer
+
 
 class RestCaptchaView(generics.GenericAPIView):
 
@@ -13,7 +15,8 @@ class RestCaptchaView(generics.GenericAPIView):
         key = CaptchaStore.generate_key()
         image = reverse('captcha-image', kwargs={'key': key}, request=request)
         value = CaptchaStore.objects.get(hashkey=key)
-        cache.set(key, value.challenge)
+        cache_timeout = settings.CAPTCHA_TIMEOUT * 60 #settings.CAPTCHA_TIMEOUT needs to be changed from minutes to seconds
+        cache.set(key, value.challenge, cache_timeout)
 
         data = {
            'captcha_key': key,
