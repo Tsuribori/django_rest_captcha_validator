@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.core.cache import cache
+from django.conf import settings
 
 class RestCaptchaField(serializers.Field):
 
@@ -13,6 +14,8 @@ class RestCaptchaField(serializers.Field):
         cache_value = cache.get(data)
  
         if cache_value == 'Validated':
+            if settings.REST_VALIDATOR_SINGLE_USE:
+                cache.delete(data)
             return data
 
         else:

@@ -56,7 +56,10 @@ class FieldTestCase(APITestCase):
         value = CaptchaStore.objects.get(hashkey=self.key)
         post_resp = self.client.post(reverse('rest_validator_view'), {'captcha_key': self.key, 'captcha_value': value})
         self.item = Item.objects.create(item_text='Test')
-        
+       
+    def tearDown(self):
+        settings.REST_VALIDATOR_SINGLE_USE = True
+ 
     def test_valid_field(self):
         data = {'item_text': self.item.item_text, 'captcha_key': self.key}
         serializer = ItemSerializer(data=data)
@@ -75,6 +78,19 @@ class FieldTestCase(APITestCase):
         serializer = ItemSerializer(data=data)
         serializer.is_valid()
         self.assertEqual(serializer.errors, {'captcha_key': ['Invalid or expired CAPTCHA']})
+ 
+    def test_cache_deleted(self):
+        data = {'item_text': self.item.item_text, 'captcha_key': self.key}
+        serializer = ItemSerializer(data=data)
+        serializer.is_valid() 
+        self.assertIsNone(cache.get(self.key))
+
+    def test_cache_not_deleted(self):
+        settings.REST_VALIDATOR_SINGLE_USE = False
+        data = {'item_text': self.item.item_text, 'captcha_key': self.key}
+        serializer = ItemSerializer(data=data)
+        serializer.is_valid()
+        self.assertEqual(cache.get(self.key), 'Validated')
 
 
 class SerializerTestCase(APITestCase):
@@ -128,4 +144,6 @@ class SettingsTestCase(APITestCase): #Test that default CAPTCHA_TIMEOUT of Djang
 
     def test_captcha_timeout(self):
         self.assertEqual(settings.CAPTCHA_TIMEOUT, self.timeout)
-        
+       
+
+

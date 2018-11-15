@@ -1,5 +1,7 @@
 from django.conf import settings
-from rest_validator.conf.settings import REST_VALIDATOR_CACHE_TIMEOUT, CAPTCHA_TIMEOUT
+from django.core.exceptions import ImproperlyConfigured
+from rest_validator.conf.settings import REST_VALIDATOR_CACHE_TIMEOUT, REST_VALIDATOR_SINGLE_USE, CAPTCHA_TIMEOUT
 
 settings.REST_VALIDATOR_CACHE_TIMEOUT = REST_VALIDATOR_CACHE_TIMEOUT
+settings.REST_VALIDATOR_SINGLE_USE = REST_VALIDATOR_SINGLE_USE
 settings.CAPTCHA_TIMEOUT = CAPTCHA_TIMEOUT

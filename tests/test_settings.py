@@ -5,7 +5,6 @@ LANGUAGE_CODE = 'en_us'
 USE_TZ = True
 SECRET_KEY = 'dsadjafe30w3459rag,sm32053+'
 
-
 ROOT_URLCONF = 'tests.urls'
 
 INSTALLED_APPS = [

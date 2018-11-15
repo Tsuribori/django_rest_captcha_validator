@@ -87,7 +87,6 @@ A request with an expired "captcha_key" or invalid "captcha_value" will return: 
 
 
 After a CAPTCHA is succesfully validated, the "captcha_key" of the CAPTCHA in question can be used in a serializer with a RestCaptchaField to validate human input. 
-The "captcha_key" is valid as long the value exists in the cache, so it's reusable. 
 If a "captcha_key" that is expired or not validated is used in a serializer, the following error occurs during serializer validation: ::
 
   {
@@ -100,7 +99,8 @@ If a "captcha_key" that is expired or not validated is used in a serializer, the
 Settings
 ++++++++
 
-There is currently only a single setting associated with Django REST CAPTCHA Validator, REST_VALIDATOR_CACHE_TIMEOUT. 
-The setting, in seconds, controls how long a validated CAPTCHA persists in the cache. The default is 300 seconds. 
+There is currently two settings associated with Django REST CAPTCHA Validator. The first is REST_VALIDATOR_CACHE_TIMEOUT. 
+This setting, in seconds, controls how long a validated CAPTCHA persists in the cache. The default is 300 seconds. 
+REST_VALIDATOR_SINGLE_USE controls is a validated "captcha_key" valid for only a single use or as long as the validated value exists in the cache, i.e. the duration of REST_VALIDATOR_CACHE_TIMEOUT. The default is True. 
 
 All other CAPTCHA settings are controlled by settings associated with Django Simple Captcha. List of those can be viewed in their `documentation <https://django-simple-captcha.readthedocs.io/en/latest/advanced.html#configuration-toggles>`_.
