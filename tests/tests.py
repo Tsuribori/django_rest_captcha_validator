@@ -133,6 +133,20 @@ class SerializerTestCase(APITestCase):
         self.assertEqual(serializer.errors, {'captcha_key': ['Invalid or expired CAPTCHA']})
        
 
+
+class ItemCreationTestCase(APITestCase): #Test that the field works in practice
+
+    def setUp(self):
+        captcha_get_resp = self.client.get(reverse('rest_validator_view'))
+        key = captcha_get_resp.data['captcha_key']
+        value = CaptchaStore.objects.get(hashkey=key).challenge
+        captcha_post_resp = self.client.post(reverse('rest_validator_view'), {'captcha_key': key, 'captcha_value': value})
+        self.resp = self.client.post(reverse('item-list'), {'item_text': 'Test', 'captcha_key': key})
+
+    def test_create_view_status(self):
+        self.assertEqual(self.resp.status_code, 201)
+
+
 class SettingsTestCase(APITestCase): #Test that default CAPTCHA_TIMEOUT of Django Simple Captcha is 5 minutes
     
     def setUp(self):

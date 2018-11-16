@@ -4,6 +4,10 @@ from django.conf import settings
 
 class RestCaptchaField(serializers.Field):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.write_only = True
+
     def to_representation(self, value):
         return str(value)
 
@@ -17,6 +21,7 @@ class RestCaptchaField(serializers.Field):
             if settings.REST_VALIDATOR_SINGLE_USE:
                 cache.delete(data)
             return data
+            
 
         else:
             raise serializers.ValidationError('Invalid or expired CAPTCHA')

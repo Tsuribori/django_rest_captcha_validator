@@ -19,7 +19,7 @@ install_requires = [
 
 setup(
     name = 'django_rest_captcha_validator',
-    version = '0.2',
+    version = '0.3',
     packages= find_packages(),
     include_package_data = True,
     license = 'MIT License',

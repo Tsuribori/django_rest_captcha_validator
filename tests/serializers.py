@@ -9,3 +9,8 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('item_text', 'captcha_key')
+
+    def create(self, validated_data):
+        validated_data.pop('captcha_key')
+        instance = super().create(validated_data)
+        return instance

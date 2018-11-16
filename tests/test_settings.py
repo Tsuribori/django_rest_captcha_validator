@@ -4,7 +4,7 @@ DEBUG = True
 LANGUAGE_CODE = 'en_us'
 USE_TZ = True
 SECRET_KEY = 'dsadjafe30w3459rag,sm32053+'
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_URLCONF = 'tests.urls'
 
 INSTALLED_APPS = [
@@ -24,7 +24,7 @@ INSTALLED_APPS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

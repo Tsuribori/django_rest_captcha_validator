@@ -56,10 +56,15 @@ Django REST CAPTCHA Validator provides a RestCaptchaField that can be added to a
       
       class Meta:
           model = Item
-          fields = ('item_text', 'captcha_key') 
+          fields = ('item_text', 'captcha_key')
+
+      def create(self, validated_data):
+          validated_data.pop('captcha_key')
+          instance = super().create(validated_data)
+          return instance 
 
 
-The field is used in validating human input.
+The field is used in validating human input. It's important that the "create" method of a ModelSerializer is overridden to delete the "captcha_key" from the "validated_data" dictionary, as otherwise a TypeError occurs due to "captcha_key" not being a field on the model.
 
 The package also provides a RestCaptchaView that is mapped to the URL given to it, in this case /validate/.  
 A GET request to the view will generate a new CAPTCHA challenge, and return a CAPTCHA key value and an URL to the challenge image, for example: ::
